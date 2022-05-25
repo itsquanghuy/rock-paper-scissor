@@ -1,6 +1,7 @@
 from random import choice as random_pick
 
-from .rock_paper_scissor import Choice, Result, RockPaperScissor
+from .engines.game import generate_result
+from .enums.game import Choice, Result
 
 
 def _ask_for_player_choice() -> Choice:
@@ -21,10 +22,7 @@ def _print_result(
     player_choice: Choice,
     computer_choice: Choice,
 ) -> None:
-    result = RockPaperScissor.generate_result(
-        player_choice,
-        computer_choice,
-    )
+    result = generate_result(player_choice, computer_choice)
 
     if result is Result.PLAYER_WON:
         print("Player won.")
