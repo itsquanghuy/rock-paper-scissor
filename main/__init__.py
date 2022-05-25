@@ -3,32 +3,44 @@ from random import choice as random_pick
 from .rock_paper_scissor import Choice, Result, RockPaperScissor
 
 
+def _ask_for_player_choice() -> Choice:
+    while True:
+        player_choice = input("Rock(r), Paper(p), Scissor(s): ")
+        if player_choice == "r":
+            return Choice.ROCK
+        elif player_choice == "p":
+            return Choice.PAPER
+        elif player_choice == "s":
+            return Choice.SCISSOR
+        else:
+            print("Invalid Choice.")
+            continue
+
+
+def _print_result(
+    player_choice: Choice,
+    computer_choice: Choice,
+) -> None:
+    result = RockPaperScissor.generate_result(
+        player_choice,
+        computer_choice,
+    )
+
+    if result is Result.PLAYER_WON:
+        print("Player won.")
+    elif result is Result.COMPUTER_WON:
+        print("Computer won.")
+    else:
+        print("Draw.")
+
+
 def start_game():
     try:
         while True:
             computer_choice = random_pick(Choice.get_list())
-            player_choice = input("Rock(r), Paper(p), Scissor(s): ")
-            if player_choice == "r":
-                player_choice = Choice.ROCK
-            elif player_choice == "p":
-                player_choice = Choice.PAPER
-            elif player_choice == "s":
-                player_choice = Choice.SCISSOR
-            else:
-                print("Invalid Choice.")
-                continue
+            player_choice = _ask_for_player_choice()
 
-            result = RockPaperScissor.generate_result(
-                player_choice=player_choice,
-                computer_choice=computer_choice,
-            )
-
-            if result is Result.PLAYER_WON:
-                print("Player won.")
-            elif result is Result.COMPUTER_WON:
-                print("Computer won.")
-            else:
-                print("Draw.")
+            _print_result(player_choice, computer_choice)
     except KeyboardInterrupt:
         print("\nBye!")
         exit()
