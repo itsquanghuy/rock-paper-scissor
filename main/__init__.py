@@ -18,6 +18,10 @@ def _ask_for_player_choice() -> Choice:
             continue
 
 
+def _pick_random_choice():
+    return random_pick(Choice.get_list())
+
+
 def _print_result(
     player_choice: Choice,
     computer_choice: Choice,
@@ -35,7 +39,7 @@ def _print_result(
 def start_game():
     try:
         while True:
-            computer_choice = random_pick(Choice.get_list())
+            computer_choice = _pick_random_choice()
             player_choice = _ask_for_player_choice()
 
             _print_result(player_choice, computer_choice)
